@@ -6,6 +6,20 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'Company') {
     exit;
 }
 
+include 'config.php';
+
+$query = "SELECT AMOUNT FROM tblchartapplicants";
+$result = $conn->query($query);
+
+$amount = [];
+
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $amount[] = $row['AMOUNT'];
+    }
+} else {
+    echo "0 results";
+}
 
 ?>
 
@@ -55,19 +69,24 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'Company') {
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="list_employee.php">
+                                <span data-feather="shopping-cart"></span>
+                                List Employee
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="list_companies.php">
                                 <span data-feather="users"></span>
                                 Companies
                             </a>
                         </li>
                     </ul>
-                </ul>
-            </div>
-        </nav>
+                </div>
+            </nav>
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2"> Chart Applicants </h1>
+                    <h1 class="h2">Chart Applicants</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group me-2">
                             <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
@@ -82,10 +101,10 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'Company') {
 
                 <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
-                <h2> Monthly Revamps </h2>
+                <h2>Monthly Revamps</h2>
                 <div class="table-responsive">
                     <table class="table table-striped table-sm">
-                           
+                        <tbody>
                         </tbody>
                     </table>
                 </div>
@@ -97,15 +116,16 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'Company') {
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/Chart.min.js"></script>
     <script>
-        feather.replace()
-        var ctx = document.getElementById('myChart').getContext('2d');
+        feather.replace();
+
+        var ctx = document.getElementById('myChart');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec' ],
                 datasets: [{
                     label: 'Applicants',
-                    data: [0, 0, 0, 1, 0, 2, 1],
+                    data: <?php echo json_encode($amount); ?>,
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1
@@ -122,3 +142,4 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'Company') {
     </script>
 </body>
 </html>
+

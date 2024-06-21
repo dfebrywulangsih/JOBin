@@ -24,6 +24,7 @@
 							  		 <th>ContactNo</th>
 							  		 <!-- <th>Department</th> -->
 							  		 <th>Position</th>
+									 <th>Company</th>
 							  		 <!-- <th>Work Status</th> -->
 							  	 	<th width="14%" >Action</th> 
 							  	</tr>	
@@ -46,6 +47,7 @@
 							  		echo '<td>'. $result->TELNO.'</td>';
 							  		// echo '<td>'. $result->DEPARTMENT.'</td>';
 							  		echo '<td>'. $result->POSITION.'</td>';
+									echo '<td>'. $result->COMPANY.'</td>';
 							  		// echo '<td>'. $result->WORKSTATS.'</td>'; 
 					  				echo '<td align="center" >    
 					  		             <a title="Edit" href="index.php?view=edit&id='.$result->EMPLOYEEID.'"  class="btn btn-info btn-xs  ">

@@ -1,15 +1,13 @@
 <?php
 session_start();
-include('config_employee.php');
+include('config.php');
 
 if (!isset($_SESSION['username']) || $_SESSION['role'] != 'Company') {
     header("Location: index.php");
     exit;
 }
 
- // Assuming this session variable holds the company ID
-
-$sql = "SELECT * FROM tblapplicants";
+$sql = "SELECT * FROM tblemployees";
 $result = $conn->query($sql);
 ?>
 
@@ -18,7 +16,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List of Applicants</title>
+    <title>List of Employee</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -70,7 +68,6 @@ $result = $conn->query($sql);
                                 Companies
                             </a>
                         </li>
-                        
                     </ul>
                 </ul>
             </div>
@@ -78,7 +75,7 @@ $result = $conn->query($sql);
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2"> List Applicants </h1>
+                    <h1 class="h2"> List Employee </h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group me-2">
                             <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
@@ -92,40 +89,44 @@ $result = $conn->query($sql);
                 </div>
 
                 <div class="container mt-5">
-                <table class="table table-striped">
-                    <thead>
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <th>APPLICANT ID</th>
+                    <th>Employee No</th>
                     <th>Name</th>
-                    <th>EMAIL ADDRESS</th>
                     <th>Address</th>
-                    <th>CONTAC</th>
+                    <th>Sex</th>
+                    <th>Age</th>
+                    <th>Contact</th>
+                    <th>Position</th>
+                    <th>Company</th>
                 </tr>
-                    </thead>
-                <tbody>
-                    <?php while ($row = $result->fetch_assoc()): ?>
+            </thead>
+            <tbody>
+                <?php if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) { ?>
+                        <tr>
+                            <td><?php echo $row['EMPLOYEEID']; ?></td>
+                            <td><?php echo $row['LNAME']; ?></td>
+                            <td><?php echo $row['ADDRESS']; ?></td>
+                            <td><?php echo $row['SEX']; ?></td>
+                            <td><?php echo $row['AGE']; ?></td>
+                            <td><?php echo $row['TELNO']; ?></td>
+                            <td><?php echo $row['POSITION']; ?></td>
+                            <td><?php echo $row['COMPANY']; ?></td>
+                        </tr>
+                    <?php } 
+                } else { ?>
                     <tr>
-                    <td><?php echo $row['APPLICANTID']; ?></td>
-                    <td><?php echo $row['FNAME']; ?></td>
-                    <td><?php echo $row['EMAILADDRESS']; ?></td>
-                    <td><?php echo $row['ADDRESS']; ?></td>
-                    <td><?php echo $row['CONTACTNO']; ?></td>
+                        <td colspan="4">No Employee found</td>
                     </tr>
-                <?php endwhile; ?>
-                </tbody>
-                </table>
-                </div>
-
-                
-                </div>
-            </main>
-        </div>
+                <?php } ?>
+            </tbody>
+        </table>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
-<?php
-$conn->close();
-?>
+<?php $conn->close(); ?>

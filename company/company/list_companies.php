@@ -16,7 +16,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Companies</title>
+    <title>List of Applicants</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -32,8 +32,63 @@ $result = $conn->query($sql);
             </div>
         </div>
     </header>
-    <div class="container mt-5">
-        <h2>List of Companies</h2>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="company_dashboard.php">
+                                <span data-feather="home"></span>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="post_job.php">
+                                <span data-feather="file"></span>
+                                Post a Job
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="list_applicants.php">
+                                <span data-feather="shopping-cart"></span>
+                                List Applicants
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="list_employee.php">
+                                <span data-feather="users"></span>
+                                List Employee
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="list_companies.php">
+                                <span data-feather="users"></span>
+                                Companies
+                            </a>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+        </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2"> List Company </h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                            <span data-feather="calendar"></span>
+                            This week
+                        </button>
+                    </div>
+                </div>
+
+                <div class="container mt-5">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -59,7 +114,9 @@ $result = $conn->query($sql);
             </tbody>
         </table>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 <?php $conn->close(); ?>
